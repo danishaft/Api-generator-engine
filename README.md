@@ -3,8 +3,6 @@
 🚀 **Build and deploy AI-powered APIs in seconds.**  
 This project allows you to create custom APIs that extract structured data from websites using natural language descriptions. Powered by **OpenAI**, **Firecrawl**, and **Redis**, it’s designed to make data extraction and API creation as simple as describing what you need in plain English.
 
----
-
 ## Overview
 
 The **LLM API Engine** is a powerful tool for automating data extraction and API creation. Here’s how it works:
@@ -16,8 +14,6 @@ The **LLM API Engine** is a powerful tool for automating data extraction and API
 5. **Schedule Updates**: Set up periodic scraping to keep your data fresh and up-to-date.
 
 This project is perfect for developers, data engineers, or anyone who needs to automate data extraction and API creation without writing complex code.
-
----
 
 ## Features
 
@@ -39,8 +35,6 @@ Deploy your API with a single click and get a callable endpoint.
 💾 **Redis-Powered Caching**  
 Uses **Upstash Redis** to cache and store scraped data for quick access.
 
----
-
 ## Tools and Technologies
 
 - **Frontend**: Next.js 14, React 18, Tailwind CSS
@@ -51,8 +45,6 @@ Uses **Upstash Redis** to cache and store scraped data for quick access.
 - **Data Validation**: Zod
 - **Animations**: Framer Motion
 - **Deployment**: Vercel
-
----
 
 ## Getting Started
 
