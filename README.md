@@ -1,245 +1,141 @@
-LLM API Engine
+# API Generator Engine
+
+🚀 **Build and deploy AI-powered APIs in seconds.**  
+This project allows you to create custom APIs that extract structured data from websites using natural language descriptions. Powered by **OpenAI**, **Firecrawl**, and **Redis**, it’s designed to make data extraction and API creation as simple as describing what you need in plain English.
 
-Build and deploy AI-powered APIs in seconds. The LLM API Engine allows you to create custom APIs that extract structured data from websites using natural language descriptions, powered by LLMs and web scraping technology.
+---
 
-🚀 Features
+## Overview
 
-🤖 Natural Language API Creation – Describe your data needs in plain English.
+The **LLM API Engine** is a powerful tool for automating data extraction and API creation. Here’s how it works:
 
-🔄 Automatic Schema Generation – Powered by OpenAI.
+1. **Describe Your Data**: Tell the system what data you need in plain English (e.g., “Get me the latest tech news headlines and their publish dates”).
+2. **Generate a Schema**: The system uses **OpenAI** to convert your description into a structured JSON schema.
+3. **Scrape Data**: Using **Firecrawl**, the system extracts data from websites based on your schema.
+4. **Deploy Your API**: The system generates a callable API endpoint that serves the extracted data.
+5. **Schedule Updates**: Set up periodic scraping to keep your data fresh and up-to-date.
 
-🌐 Intelligent Web Scraping – Uses Firecrawl for real-time data extraction.
+This project is perfect for developers, data engineers, or anyone who needs to automate data extraction and API creation without writing complex code.
 
-⚡ Scheduled Data Updates – Automate recurring scrapes.
+---
 
-🚀 Instant API Deployment – Deploy anywhere, including Vercel and Cloudflare Workers.
+## Features
 
-📊 Structured Data Output – JSON Schema validation ensures consistent results.
+✨ **Natural Language API Creation**  
+Describe your data needs in plain English, and the system generates a structured API for you.
 
-💾 Efficient Caching – Redis-powered storage for optimized performance.
+🤖 **Automatic Schema Generation**  
+Uses **OpenAI** to convert your natural language descriptions into structured JSON schemas.
 
-🏗️ Architecture
+🌐 **Intelligent Web Scraping**  
+Powered by **Firecrawl**, the system extracts data from websites based on your schema.
 
-The LLM API Engine is designed with a modular and flexible architecture:
+⚡ **Real-Time Data Updates**  
+Schedule periodic scraping to keep your data fresh and up-to-date.
+
+🚀 **Instant API Deployment**  
+Deploy your API with a single click and get a callable endpoint.
+
+💾 **Redis-Powered Caching**  
+Uses **Upstash Redis** to cache and store scraped data for quick access.
 
-API Builder – A Next.js application for creating and managing API endpoints.
-
-Consumable Endpoints – Deployable and accessible via:
-
-Cloudflare Workers (Coming Soon)
-
-Vercel Edge Functions
-
-AWS Lambda
-
-Any HTTP-compatible server
-
-This decoupled approach allows you to:
-
-Use Next.js solely for endpoint creation and management.
-
-Deploy your API endpoints separately for performance optimization.
-
-Scale API consumption independently of the management interface.
-
-🛠 Tech Stack
-
-Frontend: Next.js 14, React 18, TailwindCSS
-
-APIs: OpenAI, Firecrawl, Upstash Redis
-
-Data Validation: Zod
-
-Animations: Framer Motion
-
-Deployment: Vercel
-
-🔧 Getting Started
-
-Prerequisites
-
-Ensure you have the following:
-
-Node.js 18+
-
-npm, yarn, or pnpm
-
-Upstash Redis account
-
-OpenAI API key
-
-Firecrawl API key
-
-Installation
-
-Clone the repository:
-
-git clone https://github.com/developersdigest/llm-api-engine.git
-cd llm-api-engine
-
-Install dependencies:
-
-npm install
-
-Set up environment variables:
-Create a .env file with the following:
-
-OPENAI_API_KEY=your_openai_key
-NEXT_PUBLIC_FIRECRAWL_API_KEY=your_firecrawl_key
-SERPER_API_KEY=your_serper_key
-UPSTASH_REDIS_REST_URL=your_redis_url
-UPSTASH_REDIS_REST_TOKEN=your_redis_token
-NEXT_PUBLIC_API_ROUTE=http://localhost:3000  # Your API base URL
-
-Run the development server:
-
-npm run dev
-
-Open http://localhost:3000 in your browser.
-
-🚢 Deployment Options
-
-LLM API Engine supports various deployment models:
-
-1️⃣ Builder Interface Only
-
-Deploy the Next.js app for API creation and management.
-
-Use Redis to store configurations.
-
-2️⃣ Independent API Deployment
-
-Deploy generated endpoints anywhere.
-
-Example using Hono with Cloudflare Workers:
-
-import { Hono } from 'hono'
-const app = new Hono()
-
-app.get('/api/results/:endpoint', async (c) => {
-  const data = await redis.get(`api/results/${c.req.param('endpoint')}`)
-  return c.json(data)
-})
-
-Supported frameworks:
-
-Cloudflare Workers
-
-Express.js
-
-AWS Lambda
-
-3️⃣ Hybrid Approach
-
-Use the builder for configuration.
-
-Deploy endpoints separately.
-
-Keep configurations synced via Redis.
-
-📌 Usage
-
-1️⃣ Create an API
-
-Enter a natural language description of the data you need.
-
-2️⃣ Generate Schema
-
-The system automatically generates a JSON schema.
-
-3️⃣ Configure Sources
-
-Select websites for data extraction.
-
-4️⃣ Deploy
-
-Deploy instantly and receive a structured API endpoint.
-
-Example Request
-
-curl -X POST "https://your-domain.com/api/deploy" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "Extract company name, revenue, and employee count",
-    "urls": ["https://example.com/company"],
-    "schedule": "0 5 * * *"
-  }'
-
-📝 API Documentation
-
-Endpoints
-
-POST /api/generate-schema – Generate JSON schema from description.
-
-POST /api/extract – Extract data from specified URLs.
-
-POST /api/deploy – Deploy a new API endpoint.
-
-GET /api/routes – List all deployed routes.
-
-GET /api/results/:endpoint – Retrieve structured data.
-
-⏳ CRON Implementation (Coming Soon)
-
-Automated data updates via:
-
-Vercel Cron Jobs (Free) – Configure vercel.json:
-
-{
-  "crons": [{
-    "path": "/api/cron/update",
-    "schedule": "0 0 * * *"
-  }]
-}
-
-Upstash QStash – Advanced scheduling for more frequent updates.
-
-GitHub Actions – Free alternative with flexible scheduling.
-
-📡 API Usage Example
-
-To fetch data from a deployed endpoint:
-
-curl -X GET "${API_ROUTE}/api/results/nvidia-market-cap" \
-  -H "Authorization: Bearer sk_your_api_key" \
-  -H "Content-Type: application/json"
-
-Response:
-
-{
-  "success": true,
-  "data": {
-    // Extracted data
-  },
-  "lastUpdated": "2024-01-01T00:00:00.000Z",
-  "sources": [
-    "https://example.com/source1",
-    "https://example.com/source2"
-  ]
-}
-
-🤝 Contributing
-
-Fork the repository.
-
-Create a feature branch (git checkout -b feature/amazing-feature).
-
-Commit your changes (git commit -m 'Add amazing feature').
-
-Push to the branch (git push origin feature/amazing-feature).
-
-Open a Pull Request.
-
-📜 License
-
-This project is licensed under the MIT License – see the LICENSE file for details.
-
-💡 Acknowledgments
-
-Built with Next.js
-
-Powered by OpenAI
-
-Web scraping via Firecrawl
-
-Data storage by Upstash
+---
+
+## Tools and Technologies
+
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **AI**: OpenAI (GPT-3.5/4) for schema generation
+- **Web Scraping**: Firecrawl
+- **Caching/Storage**: Upstash Redis
+- **Data Validation**: Zod
+- **Animations**: Framer Motion
+- **Deployment**: Vercel
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- **Node.js v18 or higher** installed.
+- Accounts for:
+  - [OpenAI](https://openai.com) (for API key)
+  - [Firecrawl](https://firecrawl.dev) (for web scraping)
+  - [Upstash Redis](https://upstash.com) (for caching and storage)
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/danishaft/api-generator-engine.git
+   cd api-generator-engine
+   ```
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3. **Set up environment variable**:
+    Create a .env.local file in the root of your project and add the following:
+    ```env
+      OPENAI_API_KEY=your_openai_key
+      NEXT_PUBLIC_FIRECRAWL_API_KEY=your_firecrawl_key
+      UPSTASH_REDIS_REST_URL=your_redis_url
+      UPSTASH_REDIS_REST_TOKEN=your_redis_token
+      NEXT_PUBLIC_API_ROUTE=http://localhost:6000
+    ```
+4. **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+5. **Open the app**:
+    Visit http://localhost:6000 in your browser. 
+    
+## API Endpoints
+
+- **POST /api/generate-schema**: Generate a JSON schema from a natural language description.
+- **POST /api/search**: Search for relevant URLs based on a query.
+- **POST /api/extract**: Extract data from selected URLs.
+- **POST /api/deploy**: Deploy a new API endpoint.
+
+## Deployment
+
+### Deploy to Vercel
+
+1. Create a new Vercel project.
+2. Go to Vercel and import your repository.
+3. Add your environment variables in the Vercel dashboard.
+4. Deploy your project.
+
+### Deploy to Other Platforms
+
+You can deploy the API endpoints to any platform that supports HTTP requests, such as:
+- AWS Lambda
+- Google Cloud Functions
+- Express.js
+- Cloudflare Workers
+
+### Contributing
+
+Contributions are welcome! Here’s how you can contribute:
+
+1. **Fork the repository**.
+2. **Create a feature branch**:
+    ```bash
+    git checkout -b feature/amazing-feature
+    ```
+3.  **Commit your changes**:
+    ```bash
+    git commit -m 'Add some amazing feature or bug fix'
+    ```
+4.  **Push to the branch**:
+    ```bash
+    git push origin feature/amazing-feature
+    ```
+4.  **Open a pull request.**
+
+## Questions or Feedback?
+
+Feel free to open an issue or reach out to me directly. Happy coding! 🚀

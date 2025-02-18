@@ -7,7 +7,7 @@ import { useSchemaGeneration } from '@/hooks/useSchemaGeneration';
 import { useExtraction } from '@/hooks/useExtraction';
 import { useDeploy } from '@/hooks/useDeploy';
 import { ErrorToast, FullScreenLoader, StepIndicator } from '@/components/common';
-import { DeployStep, ExtractStep, InitialStep, SchemaStep, SourcesStep } from '@/components/steps';
+import { DeployStep, ExtractStep, InitialStep, SchemaStep, SourcesStep } from '@/components/ui';
 
 export default function Home() {
   //hooks
