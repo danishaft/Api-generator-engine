@@ -1,3 +1,14 @@
+ export type StepType = 'initial'| 'schema' | 'sources' | 'extract' | 'deploy';
+
+ export interface Step {
+  number: number;
+  title: string;
+  description: string;
+}
+export interface StepConfig {
+  step: StepType;
+  setStep: (step: StepType) => void;
+}
 export interface Route {
     route: string;
     created: string;
@@ -32,7 +43,17 @@ export interface Route {
   
   export interface ScrapeResult {
     success: boolean;
-    data?: any;
+    data?: unknown;
     error?: unknown;
   }
   
+  // export interface ApiResponse<T> {
+  //   success: boolean;
+  //   data?: T;
+  //   error?: string;
+  // }
+
+  // export interface SchemaGenerationResponse {
+  //   schema: JsonSchema;
+  //   error?: string;
+  // }
